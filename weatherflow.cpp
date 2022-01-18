@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <fstream>
 #include <netinet/in.h>
 #include <functional>
@@ -42,7 +43,7 @@ int main(int argc, char *argv[]) {
 
     std::string record = buf;
 
-    record.erase(remove(record.begin(), record.end(), 0x01), record.end()); 
+    record.erase(std::remove(record.begin(), record.end(), 0x01), record.end()); 
 
     std::cout << record << std::endl;
 
