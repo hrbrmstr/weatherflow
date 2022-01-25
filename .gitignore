@@ -96,4 +96,4 @@ iOSInjectionProject/
 ### Xcode Patch ###
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-^weatherflow$
+weatherflow
