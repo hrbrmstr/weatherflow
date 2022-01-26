@@ -6,10 +6,13 @@
 #include <signal.h>
 #include <string.h>
 
+// msgs are super small
+#define BUF_SIZE 1024
+
+// cld do more with this in the future
 void bye(int sig) {
   exit(0);
 }
-
 
 // Log WeatherFlow Tempest UDP broadcast messages to stdout
 // Ref: https://weatherflow.github.io/Tempest/api/udp/v171/
@@ -36,16 +39,12 @@ int main(int argc, char *argv[]) {
 
   while(true) {
 
-    char buf[10*1024];
+    char buf[BUF_SIZE];
     unsigned slen = sizeof(sockaddr);
 
-    recvfrom(s, buf, sizeof(buf)-1, 0, (sockaddr *)&si_other, &slen);
+    int n = recvfrom(s, buf, sizeof(buf)-1, 0, (sockaddr *)&si_other, &slen);
 
-    std::string record = buf;
-
-    record.erase(std::remove(record.begin(), record.end(), 0x01), record.end()); 
-
-    std::cout << record << std::endl;
+    std::cout << std::string(buf, 0, n) << std::endl;
 
   }
 
